@@ -9,8 +9,50 @@ package it.h_umus.tuio
 	import flash.utils.Dictionary;
 	import flash.events.IOErrorEvent;
 	import flash.events.SecurityErrorEvent;
-	//import it.h_umus.util.GenericDataEvent;
+	
+	/**
+	 * @eventType it.h_umus.tuio.TuioEvent.ADD_TUIO_OBJ
+	 **/
+	[Event(name="addTuioObj", type="it.h_umus.tuio.TuioEvent")]
+	
+	/**
+	 * @eventType it.h_umus.tuio.TuioEvent.UPDATE_TUIO_OBJ
+	 **/
+	[Event(name="updateTuioObj", type="it.h_umus.tuio.TuioEvent")]
+	
+	/**
+	 * @eventType it.h_umus.tuio.TuioEvent.REMOVE_TUIO_OBJ
+	 **/
+	[Event(name="removeTuioObj", type="it.h_umus.tuio.TuioEvent")]
+	
+	/**
+	 * @eventType it.h_umus.tuio.TuioEvent.ADD_TUIO_CUR
+	 **/
+	[Event(name="addTuioCur", type="it.h_umus.tuio.TuioEvent")]
+	
+	/**
+	 * @eventType it.h_umus.tuio.TuioEvent.UPDATE_TUIO_OBJ
+	 **/
+	[Event(name="updateTuioCur", type="it.h_umus.tuio.TuioEvent")]
+	
+	/**
+	 * @eventType it.h_umus.tuio.TuioEvent.REMOVE_TUIO_OBJ
+	 **/
+	[Event(name="removeTuioCur", type="it.h_umus.tuio.TuioEvent")]
+	
+	/**
+	 * @eventType it.h_umus.tuio.TuioEvent.REFRESH
+	 **/
+	[Event(name="refresh", type="it.h_umus.tuio.TuioEvent")]
 
+	/**
+	 * 
+	 * @author Ignacio Delgado
+	 * @see http://code.google.com/p/tuio-as3-lib
+	 * @see http://code.google.com/p/flosc
+	 * @see http://mtg.upf.edu/software?reactivision
+	 * 
+	 */
 	public class TuioClient extends EventDispatcher
 	{
 		private var _OSCReceiver:OSCConnection;
@@ -28,17 +70,21 @@ package it.h_umus.tuio
 		private var _aliveCursorList:Dictionary = new Dictionary();
 		
 		
+		/**
+		 * 
+		 * @param address
+		 * @param port
+		 * 
+		 */
 		public function TuioClient(address:String="localhost", port:uint=3000){
 			_port = port;
 			_address = address;
 			_OSCReceiver = new OSCConnection(_address, _port);
-			_OSCReceiver.addEventListener(OSCConnectionEvent.ON_PACKET_IN, onPacketIn);
-			
+			_OSCReceiver.addEventListener(OSCConnectionEvent.OSC_PACKET_IN, onPacketIn);		
 			_OSCReceiver.addEventListener(Event.CONNECT,onConnect);
 			_OSCReceiver.addEventListener(Event.CLOSE,onClose);
 			_OSCReceiver.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
-			_OSCReceiver.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
-			
+			_OSCReceiver.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);	
 		}
 		
 		public function getPort():uint{
@@ -47,11 +93,11 @@ package it.h_umus.tuio
 		
 		
 		public function connect():void{
-			_OSCReceiver.connect()
+			_OSCReceiver.connect(_address, _port)
 		}
 		
 		public function disconnect():void{
-			_OSCReceiver.disconnect();
+			_OSCReceiver.close();
 		}
 		
 		private function onPacketIn(event:OSCConnectionEvent):void{
@@ -63,7 +109,7 @@ package it.h_umus.tuio
 			
 			var command:String = (String)(message.getArgumentValue(0));
 			
-			switch(message._name){
+			switch(message.name){
 				
 				case "/tuio/2Dobj":
 					if((command == "set") && (_currentFrame >= _lastFrame))
@@ -99,7 +145,7 @@ package it.h_umus.tuio
 					}
 					else if((command=="alive")&&(_currentFrame >= _lastFrame))
 					{
-						for(var i:uint = 1; i < message._argumentsArray.length; i++){
+						for(var i:uint = 1; i < message.arguments.length; i++){
 							var s_id:int = (int)(message.getArgumentValue(i));
 							_newObjectList[s_id]=s_id;
 							if(_aliveObjectList[s_id]!=null)
@@ -154,7 +200,7 @@ package it.h_umus.tuio
 					}
 					else if((command=="alive")&&(_currentFrame >= _lastFrame))
 					{
-						for(var i:uint = 1; i < message._argumentsArray.length; i++){
+						for(var i:uint = 1; i < message.arguments.length; i++){
 							var s_id:int = (int)(message.getArgumentValue(i));
 							_newCursorList[s_id]=s_id;
 							if(_aliveCursorList[s_id]!=null)
