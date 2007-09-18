@@ -70,7 +70,7 @@ package {
 			var a:Item =items[event.data.s];
 			a.x = event.data.x * _width;
 			a.y = event.data.y * _height;
-			//a.rotation = event.data.a * 180/Math.PI;
+			a.rotation = event.data.a * 180/Math.PI;
 		}
 		
 		private function refresh(event:TuioEvent):void{
