@@ -28,14 +28,17 @@ package {
 		
 		public function TUIOTest()
 		{			
-			var tuioClient:TuioClient = new TuioClient("10.10.4.243");
-			//tuioClient.addEventListener(Tuio2DCurEvent.ADD_TUIO_2D_CUR,addTuio);
-			//tuioClient.addEventListener(Tuio2DCurEvent.REMOVE_TUIO_2D_CUR,removeTuio);
-			//tuioClient.addEventListener(Tuio2DCurEvent.UPDATE_TUIO_2D_CUR,updateTuio);
+			var tuioClient:TuioClient = new TuioClient("localhost", 3000);
+			
+			tuioClient.addEventListener(Tuio2DCurEvent.ADD_TUIO_2D_CUR,addTuioCur);
+			tuioClient.addEventListener(Tuio2DCurEvent.REMOVE_TUIO_2D_CUR,removeTuioCur);
+			tuioClient.addEventListener(Tuio2DCurEvent.UPDATE_TUIO_2D_CUR,updateTuioCur);
+			
 			tuioClient.addEventListener(TuioEvent.REFRESH,refresh);
-			tuioClient.addEventListener(Tuio2DObjEvent.ADD_TUIO_2D_OBJ,addTuio);
-			tuioClient.addEventListener(Tuio2DObjEvent.REMOVE_TUIO_2D_OBJ,removeTuio);
-			tuioClient.addEventListener(Tuio2DObjEvent.UPDATE_TUIO_2D_OBJ,updateTuio);
+			
+			tuioClient.addEventListener(Tuio2DObjEvent.ADD_TUIO_2D_OBJ,addTuioObj);
+			tuioClient.addEventListener(Tuio2DObjEvent.REMOVE_TUIO_2D_OBJ,removeTuioObj);
+			tuioClient.addEventListener(Tuio2DObjEvent.UPDATE_TUIO_2D_OBJ,updateTuioObj);
 			
 			tuioClient.addEventListener(Event.CONNECT, traceEvent);
 			tuioClient.addEventListener(Event.CLOSE, traceEvent);
@@ -50,22 +53,39 @@ package {
 			trace(event.type);
 		}
 		
+		private function addTuioCur(event:Tuio2DCurEvent):void{
+			var a:Cursor = new Cursor();
+			items[event.data.s]=a;
+			addChild(a);
+		}
 		
-		private function addTuio(event:Tuio2DObjEvent):void{
+		private function removeTuioCur(event:Tuio2DCurEvent):void{
+			removeChild(items[event.data.s]);
+			items[event.data.s]=null;
+			delete(items[event.data.s]);
+		}
+		
+		private function updateTuioCur(event:Tuio2DCurEvent):void{
+			var a:Cursor =items[event.data.s];
+			a.x = event.data.x * _width;
+			a.y = event.data.y * _height;
+		}
+		
+		private function addTuioObj(event:Tuio2DObjEvent):void{
 			//trace(event.type);	
 			var a:Item = new Item(event.data.i);
 			items[event.data.s]=a;
 			addChild(a);
 		}
 		
-		private function removeTuio(event:Tuio2DObjEvent):void{
+		private function removeTuioObj(event:Tuio2DObjEvent):void{
 			//trace(event.type);	
 			removeChild(items[event.data.s]);
 			items[event.data.s]=null;
 			delete(items[event.data.s]);
 		}
 		
-		private function updateTuio(event:Tuio2DObjEvent):void{
+		private function updateTuioObj(event:Tuio2DObjEvent):void{
 			//trace(event.type);
 			var a:Item =items[event.data.s];
 			a.x = event.data.x * _width;
