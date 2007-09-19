@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
 <includeClasses>
+<classEntry path="it.h_umus.tuio.profiles.Tuio2DObjProfile"/>
+<classEntry path="it.h_umus.tuio.profiles.AbstractProfile"/>
+<classEntry path="it.h_umus.tuio.profiles.Tuio2DCurProfile"/>
+<classEntry path="it.h_umus.tuio.Tuio2DObjClient"/>
 <classEntry path="it.h_umus.tuio.Tuio2DObj"/>
+<classEntry path="it.h_umus.tuio.Tuio2DCurClient"/>
 <classEntry path="it.h_umus.tuio.Tuio2DCur"/>
+<classEntry path="it.h_umus.tuio.AbstractTuio"/>
 <classEntry path="it.h_umus.tuio.TuioClient"/>
 </includeClasses>
 <includeResources/>
