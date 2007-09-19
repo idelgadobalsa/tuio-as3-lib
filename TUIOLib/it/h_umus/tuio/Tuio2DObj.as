@@ -1,8 +1,7 @@
 package it.h_umus.tuio
 {
-	public class Tuio2DObj
+	public class Tuio2DObj extends AbstractTuio
 	{
-		public var s:int;
 		public var i:int;
 		public var x:Number;
 	    public var y:Number;
