@@ -5,8 +5,6 @@ package {
 	import it.h_umus.osc.OSCMessage;
 	import it.h_umus.tuio.TuioClient;
 	import it.h_umus.tuio.events.TuioEvent;
-	import it.h_umus.tuio.Tuio2DObj;
-	import it.h_umus.tuio.Tuio2DCur;
 	import flash.utils.Dictionary;
 	
 	import flash.events.Event;
@@ -14,6 +12,9 @@ package {
 	import flash.events.SecurityErrorEvent;
 	import it.h_umus.tuio.events.Tuio2DObjEvent;
 	import it.h_umus.tuio.events.Tuio2DCurEvent;
+
+	import it.h_umus.tuio.profiles.Tuio2DCurProfile;
+	import it.h_umus.tuio.profiles.Tuio2DObjProfile;
 
 
 	[SWF(width="800", height="600")]
@@ -29,6 +30,11 @@ package {
 		public function TUIOTest()
 		{			
 			var tuioClient:TuioClient = new TuioClient("localhost", 3000);
+			
+			//listen for tuio2Dcur messages profile
+			tuioClient.addProfile(new Tuio2DCurProfile());
+			//listen for tuio2Dobj messages profile
+			tuioClient.addProfile(new Tuio2DObjProfile());
 			
 			tuioClient.addEventListener(Tuio2DCurEvent.ADD_TUIO_2D_CUR,addTuioCur);
 			tuioClient.addEventListener(Tuio2DCurEvent.REMOVE_TUIO_2D_CUR,removeTuioCur);
