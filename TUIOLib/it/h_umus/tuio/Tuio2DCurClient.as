@@ -17,7 +17,13 @@ package it.h_umus.tuio
 	 **/
 	[Event(name="removeTuio2DCur", type="it.h_umus.tuio.events.Tuio2DCurEvent")]
 	
-	
+	/**
+	 * 
+	 * @author Ignacio Delgado
+	 * @see http://code.google.com/p/tuio-as3-lib
+	 * @see http://mtg.upf.es/reactable/?software
+	 * 
+	 */
 	public class Tuio2DCurClient extends TuioClient
 	{
 		private var _tuio2DCurProfile:Tuio2DCurProfile;

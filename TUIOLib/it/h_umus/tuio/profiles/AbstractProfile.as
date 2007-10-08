@@ -3,31 +3,84 @@ package it.h_umus.tuio.profiles
 	import flash.utils.Dictionary;
 	import it.h_umus.osc.OSCMessage;
 	import it.h_umus.tuio.events.TuioEvent;
-	import flash.events.EventDispatcher;
 	import it.h_umus.tuio.AbstractTuio;
+	import flash.errors.IllegalOperationError;
+	import it.h_umus.tuio.TuioClient;
 	
+	//ABSTRACT Class (should be subclassed and not instantiaded)
+	/**
+	 * The AbstractProfile class defines the base for all tuio profiles implementation.
+	 * It defines a base structure to analyse data recieved from a profile and
+	 * decide to dispatch proper events when tuio added, removed, updated o simply 
+	 * a refresh. All tuio profiles must extend the AbstractProfile. The main methods 
+	 * to override are:
+	 * 	<ul>
+	 * 		<li>@see #profileName</li>
+	 * 		<li>@see #dispatchRemove</li>
+	 * 		<li>@see #processSet</li>
+	 *  </ul>
+	 * 
+	 * @author Ignacio Delgado
+	 * @see http://code.google.com/p/tuio-as3-lib
+	 * @see http://mtg.upf.es/reactable/?software
+	 * 
+	 */
 	public class AbstractProfile implements IProfile
-	{
+	{	
+		/**
+		* The tuio client that will dispatch the events.
+		*/
+		protected var _dispatcher:TuioClient;
 		
-		protected var _dispatcher:EventDispatcher;
-		
+		/**
+		* @private The current id frame being analized
+		*/
 		private var _currentFrame:int = 0;
+		
+		/**
+		* @private Last analized id frame
+		*/
 		private var _lastFrame:int =0;
 		
+		/**
+		* @private current objects in frame
+		*/
 		protected var _objectsList:Dictionary = new Dictionary();
-		protected var _newObjectList:Dictionary = new Dictionary();
+		
+		//protected var _newObjectList:Dictionary = new Dictionary();
+		
+		/**
+		* @private current alive objects
+		*/
 		protected var _aliveObjectList:Dictionary = new Dictionary();
 		
+		/**
+		 * Get the profile name
+		 */
 		public function get profileName():String
 		{
-			return "/tuio/";
+			throw new IllegalOperationError("Abstract method:" + 
+					"must be overriden in a subclass");
 		}
 		
-		public final function addDispatcher(dispatcher:EventDispatcher):void
+		/**
+		 * Sets the TuioClient that will dispatch the Tuio events.
+		 * 
+		 * @param dispatcher The tuio client
+		 * 
+		 */
+		public final function addDispatcher(dispatcher:TuioClient):void
 		{
 			_dispatcher = dispatcher;
 		}
 		
+		/**
+		 * Processes a Tuio message looking for <code>set</code>,<code>alive</code>
+		 * and <code>fseq</code> messages so to decide the proper event to dispatch.
+		 * 
+		 * @param message The TUIO/OSC message to parse
+		 * 
+		 */
 		public final function processCommand(message:OSCMessage) : void
 		{
 			var command:String = (String)(message.getArgumentValue(0));
@@ -46,18 +99,32 @@ package it.h_umus.tuio.profiles
 			}
 		}
 		
+		/**
+		 * 
+		 * @param tuio
+		 * 
+		 */
 		protected function dispatchRemove(tuio:AbstractTuio) : void
 		{
-			throw new Error("Abstract Method");
+			throw new IllegalOperationError("Abstract method:" + 
+					"must be overriden in a subclass");
 		}
 		
+		/**
+		 * 
+		 * @param message
+		 * 
+		 */
 		protected function processSet(message:OSCMessage) : void
 		{
-			throw new Error("Abstract Method");
+			throw new IllegalOperationError("Abstract method:" + 
+					"must be overriden in a subclass");
 		}
 		
 		protected function processAlive(message:OSCMessage):void
 		{
+			var _newObjectList:Dictionary = new Dictionary();
+			
 			for(var index:uint = 1; index < message.arguments.length; index++)
 				{
 					var s_id:int = message.getArgumentValue(index) as int;
@@ -75,25 +142,25 @@ package it.h_umus.tuio.profiles
 					delete(_objectsList[s]);
 				}
 						
-				var buffer:Dictionary = _aliveObjectList;
+				//var buffer:Dictionary = _aliveObjectList;
 				_aliveObjectList = _newObjectList;
-				_newObjectList = buffer;
+				/*_newObjectList = buffer;
 				for (var key:Object in _newObjectList) {
 					_newObjectList[key]=null;
 					delete(_newObjectList[key]);
-				}
+				}*/
 		}
 		
 		protected function processFseq(message:OSCMessage):void
 		{
 			_lastFrame = _currentFrame;
-				_currentFrame = message.getArgumentValue(1) as int;
+			_currentFrame = message.getArgumentValue(1) as int;
 						
-				if(_currentFrame == -1)
-					_currentFrame = _lastFrame;
+			if(_currentFrame == -1)
+				_currentFrame = _lastFrame;
 						
-				if(_currentFrame >= _lastFrame)
-					_dispatcher.dispatchEvent(new TuioEvent(TuioEvent.REFRESH));
+			if(_currentFrame >= _lastFrame)
+				_dispatcher.dispatchEvent(new TuioEvent(TuioEvent.REFRESH));
 		}
 	}
 }
