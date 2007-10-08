@@ -19,7 +19,9 @@ package it.h_umus.tuio
 	[Event(name="refresh", type="it.h_umus.tuio.events.TuioEvent")]
 
 	/**
-	 * 
+	 * The TuioClient is a generic tuio client for listening to tuio messages of 
+	 * specific tuoi profiles.
+	 *  
 	 * @author Ignacio Delgado
 	 * @see http://code.google.com/p/tuio-as3-lib
 	 * @see http://code.google.com/p/flosc
@@ -29,7 +31,7 @@ package it.h_umus.tuio
 	public class TuioClient extends EventDispatcher
 	{
 		private var _OSCReceiver:OSCConnection;
-		private var _port:uint = 3333;
+		private var _port:int = 3000;
 		private var _host:String = "localhost";
 		
 		protected var profiles:Array = new Array();
@@ -41,7 +43,7 @@ package it.h_umus.tuio
 		 * @param port
 		 * 
 		 */
-		public function TuioClient(host:String="localhost", port:uint=3000){
+		public function TuioClient(host:String="localhost", port:int=3000){
 			_port = port;
 			_host = host;
 			_OSCReceiver = new OSCConnection(_host, _port);
@@ -59,7 +61,7 @@ package it.h_umus.tuio
 			profiles.push(profile);
 		}
 		
-		public function getPort():uint{
+		public function get port():int{
 			return _port;
 		}
 		
@@ -106,7 +108,7 @@ package it.h_umus.tuio
 			dispatchEvent(event);
 		}
 		
-		protected function onSecurityError(event:Event) : void {
+		protected function onSecurityError(event:SecurityErrorEvent) : void {
 			//trace("OSCConnection.onConnectError()");		
 			dispatchEvent(event);
 		}
