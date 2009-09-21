@@ -1,7 +1,7 @@
 package it.h_umus.tuio.profiles
 {
 	import it.h_umus.osc.OSCMessage;
-	import it.h_umus.tuio.TuioClient;;
+	import it.h_umus.tuio.ITuioClient;;
 	
 	/**
 	 * 
@@ -14,6 +14,6 @@ package it.h_umus.tuio.profiles
 	{
 		function get profileName() : String;
 		function processCommand(message:OSCMessage) : void;
-		function addDispatcher(dispatcher:TuioClient) : void;
+		function addDispatcher(dispatcher:ITuioClient) : void;
 	}
 }
