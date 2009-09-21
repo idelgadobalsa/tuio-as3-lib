@@ -5,7 +5,7 @@ package it.h_umus.tuio.profiles
 	import it.h_umus.tuio.events.TuioEvent;
 	import it.h_umus.tuio.AbstractTuio;
 	import flash.errors.IllegalOperationError;
-	import it.h_umus.tuio.TuioClient;
+	import it.h_umus.tuio.ITuioClient;
 	
 	//ABSTRACT Class (should be subclassed and not instantiaded)
 	/**
@@ -30,7 +30,7 @@ package it.h_umus.tuio.profiles
 		/**
 		* The tuio client that will dispatch the events.
 		*/
-		protected var _dispatcher:TuioClient;
+		protected var _dispatcher:ITuioClient;
 		
 		/**
 		* @private The current id frame being analized
@@ -69,7 +69,7 @@ package it.h_umus.tuio.profiles
 		 * @param dispatcher The tuio client
 		 * 
 		 */
-		public final function addDispatcher(dispatcher:TuioClient):void
+		public final function addDispatcher(dispatcher:ITuioClient):void
 		{
 			_dispatcher = dispatcher;
 		}
