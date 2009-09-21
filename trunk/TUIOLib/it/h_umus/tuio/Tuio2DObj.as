@@ -107,5 +107,10 @@ package it.h_umus.tuio
 	    	this.m = m;
 			this.r = r;
 		}
+		
+		
+		public function toString():String{
+			return "s:"+s+"\t i:"+i+"\t x:"+x+"\t y:"+y+"\t a:"+a+"\t X:"+X+"\t Y:"+Y+"\t A:"+A+"\t m:"+m+"\t r:"+r;
+		}
 	}
 }
