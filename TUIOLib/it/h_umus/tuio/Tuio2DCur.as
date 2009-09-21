@@ -73,5 +73,9 @@ package it.h_umus.tuio
 	    	this.Y = Y;
 	    	this.m = m;
 	    }
+	    
+	    public function toString():String{
+	    	return "s:"+s+"\t x:"+x+"\t y:"+y+"\t X:"+X+"\t Y:"+Y+"\t m:"+m;
+	    }
 	}
 }
