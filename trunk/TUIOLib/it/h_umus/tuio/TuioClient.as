@@ -1,15 +1,14 @@
 package it.h_umus.tuio
 {
-	import flash.events.EventDispatcher;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.events.IOErrorEvent;
+	import flash.events.SecurityErrorEvent;
+	
 	import it.h_umus.osc.OSCConnection;
 	import it.h_umus.osc.OSCConnectionEvent;
 	import it.h_umus.osc.OSCMessage;
-	import flash.events.IOErrorEvent;
-	import flash.events.SecurityErrorEvent;
 	import it.h_umus.tuio.events.TuioEvent;
-	import it.h_umus.tuio.profiles.Tuio2DObjProfile;
-	import it.h_umus.tuio.profiles.Tuio2DCurProfile;
 	import it.h_umus.tuio.profiles.IProfile;
 	
 	
@@ -28,7 +27,7 @@ package it.h_umus.tuio
 	 * @see http://mtg.upf.es/reactable/?software
 	 * 
 	 */
-	public class TuioClient extends EventDispatcher
+	public class TuioClient extends EventDispatcher implements ITuioClient
 	{
 		private var _OSCReceiver:OSCConnection;
 		private var _port:int = 3000;
