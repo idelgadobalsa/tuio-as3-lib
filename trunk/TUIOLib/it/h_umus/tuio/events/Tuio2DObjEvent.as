@@ -31,7 +31,7 @@ package it.h_umus.tuio.events
 		 * 
 		 * @eventType addTuio2DObj
 		 **/
-		public static const ADD_TUIO_2D_OBJ:String 	= "addTuio2DObj";
+		public static const ADD_TUIO_2D_OBJ:String 	= "it.h_umus.tuio.events.addTuio2DObj";
 		
 		/**
 		 * The Tuio2DObjEvent.UPDATE_TUIO_2D_OBJ constant defines the value of the 
@@ -40,7 +40,7 @@ package it.h_umus.tuio.events
 		 * 
 		 * @eventType updateTuio2DObj
 		 **/
-		public static const UPDATE_TUIO_2D_OBJ:String 	= "updateTuio2DObj";
+		public static const UPDATE_TUIO_2D_OBJ:String 	= "it.h_umus.tuio.events.updateTuio2DObj";
 		
 		/**
 		 * The Tuio2DObjEvent.REMOVE_TUIO_2D_OBJ constant defines the value of the 
@@ -49,7 +49,7 @@ package it.h_umus.tuio.events
 		 * 
 		 * @eventType removeTuio2DObj
 		 **/
-		public static const REMOVE_TUIO_2D_OBJ:String 	= "removeTuio2DObj";
+		public static const REMOVE_TUIO_2D_OBJ:String 	= "it.h_umus.tuio.events.removeTuio2DObj";
 		
 		/**
 		* A Tuio2DObj object containing all data associated to the event.
