@@ -24,7 +24,7 @@ package it.h_umus.tuio.events
 		 * 
 		 * @eventType refresh
 		 **/
-		public static const REFRESH:String			= "refresh";
+		public static const REFRESH:String			= "it.h_umus.tuio.events.refresh";
 		
 		
 		//public var data:Object;

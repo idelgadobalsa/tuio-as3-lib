@@ -31,7 +31,7 @@ package it.h_umus.tuio.events
 		 * 
 		 * @eventType addTuio2DCur
 		 **/
-		public static const ADD_TUIO_2D_CUR:String		= "addTuio2DCur";
+		public static const ADD_TUIO_2D_CUR:String		= "it.h_umus.tuio.events.addTuio2DCur";
 		
 		/**
 		 * The Tuio2DCurEvent.UPDATE_TUIO_2D_CUR constant defines the value of the 
@@ -40,7 +40,7 @@ package it.h_umus.tuio.events
 		 * 
 		 * @eventType updateTuio2DCur
 		 **/
-		public static const UPDATE_TUIO_2D_CUR:String 	= "updateTuio2DCur";
+		public static const UPDATE_TUIO_2D_CUR:String 	= "it.h_umus.tuio.events.updateTuio2DCur";
 		
 		/**
 		 * The Tuio2DCurEvent.REMOVE_TUIO_2D_CUR constant defines the value of the 
@@ -49,7 +49,7 @@ package it.h_umus.tuio.events
 		 * 
 		 * @eventType removeTuio2DCur
 		 **/
-		public static const REMOVE_TUIO_2D_CUR:String	= "removeTuio2DCur";
+		public static const REMOVE_TUIO_2D_CUR:String	= "it.h_umus.tuio.events.removeTuio2DCur";
 				
 		/**
 		* A Tuio2DCur object containing all data associated to the event.
